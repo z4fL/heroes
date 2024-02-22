@@ -9,3 +9,109 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Hero {
+  id           Int          @id @default(autoincrement()) @db.UnsignedSmallInt
+  main_id      Int          @db.UnsignedSmallInt
+  roles        Role[]
+  positions    Position[]
+  specialities Speciality[]
+  name         String       @db.VarChar(50)
+  skins        Skin[]
+  ratings      Rating[]
+  skills       Skill[]
+}
+
+model Role {
+  id     Int    @id @default(autoincrement()) @db.UnsignedSmallInt
+  name   String @db.VarChar(10)
+  icon   String
+  heroes Hero[]
+}
+
+model Position {
+  id     Int    @id @default(autoincrement()) @db.SmallInt
+  name   String @db.VarChar(10)
+  icon   String
+  heroes Hero[]
+}
+
+model Speciality {
+  id     Int    @id @default(autoincrement()) @db.SmallInt
+  name   String @db.VarChar(15)
+  icon   String
+  heroes Hero[]
+}
+
+model Skin {
+  id        Int    @id @default(autoincrement())
+  name      String @db.VarChar(25)
+  potrait   String
+  splashArt String
+  Hero      Hero   @relation(fields: [heroId], references: [id])
+  heroId    Int @db.UnsignedSmallInt
+}
+
+model Skill {
+  id            Int             @id @default(autoincrement())
+  type          String          @db.VarChar(10)
+  name          String          @db.VarChar(25)
+  damageType    String          @db.VarChar(10)
+  skillCosts    SkillCost[]
+  skillCooldown SkillCooldown[]
+  icon          String
+  tags          Tag[]
+  description   String
+  specialTerms  SpecialTerms[]
+  specialValue  SpecialValue[]
+  Hero          Hero            @relation(fields: [heroId], references: [id])
+  heroId        Int @db.UnsignedSmallInt
+}
+
+model SkillCost {
+  id      Int     @id @default(autoincrement())
+  value   Decimal
+  Skill   Skill   @relation(fields: [skillId], references: [id])
+  skillId Int
+}
+
+model SkillCooldown {
+  id      Int     @id @default(autoincrement())
+  value   Decimal
+  Skill   Skill   @relation(fields: [skillId], references: [id])
+  skillId Int
+}
+
+model SpecialTerms {
+  id      Int    @id @default(autoincrement())
+  Skill   Skill  @relation(fields: [skillId], references: [id])
+  skillId Int
+  name    String
+  value   String
+  color   String
+}
+
+model SpecialValue {
+  id           Int     @id @default(autoincrement())
+  Skill        Skill   @relation(fields: [skillId], references: [id])
+  skillId      Int
+  name         String
+  valueFloat   Decimal
+  isPercentage Boolean
+  heading      String
+}
+
+model Rating {
+  id     Int    @id @default(autoincrement())
+  name   String
+  value  Int
+  Hero   Hero   @relation(fields: [heroId], references: [id])
+  heroId Int @db.UnsignedSmallInt
+}
+
+model Tag {
+  id     Int     @id @default(autoincrement()) @db.SmallInt
+  name   String
+  rgb    String
+  skills Skill[]
+}

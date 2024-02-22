@@ -1,6 +1,7 @@
 import { Poppins, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer"
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
       <body className={`bg-color-dark ${poppins.className}`}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );

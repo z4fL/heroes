@@ -12,6 +12,20 @@
   src: url("../../public/fonts/DINNextW05.ttf");
 }
 
+html {
+  scrollbar-gutter: stable;
+  overflow-y: auto !important;
+  padding: 0px !important;
+}
+
+.tooltip {
+  @apply invisible absolute;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible z-50;
+}
+
 .container-box {
   position: relative;
   display: grid;
@@ -98,6 +112,8 @@
 
   color: var(--button-text-color);
   position: relative;
+  display: inline-block;
+  text-align: center;
   padding: 8px;
   margin-bottom: 20px;
   text-transform: uppercase;
