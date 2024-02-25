@@ -43,12 +43,14 @@ model Speciality {
 }
 
 model Skin {
-  id        Int    @id @default(autoincrement()) @db.UnsignedInt
-  Hero      Hero   @relation(fields: [heroId], references: [main_id])
-  heroId    Int    @db.UnsignedSmallInt
-  name      String @db.VarChar(25)
-  potrait   String
-  splashArt String
+  id          Int     @id @default(autoincrement()) @db.UnsignedInt
+  Hero        Hero    @relation(fields: [heroId], references: [main_id])
+  heroId      Int     @db.UnsignedSmallInt
+  skinTag     String  @db.VarChar(25)
+  skinTagIcon String?
+  name        String  @db.VarChar(25)
+  potrait     String
+  splashArt   String
 }
 
 model Skill {

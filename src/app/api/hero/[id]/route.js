@@ -1,6 +1,7 @@
 import prisma from "@/libs/prisma";
 import { NextResponse } from "next/server";
 
+// Get one
 export async function GET(request, { params: { id } }) {
   const hero = await prisma.hero.findUnique({
     where: {
@@ -47,3 +48,9 @@ export async function GET(request, { params: { id } }) {
       }
     );
 }
+
+// Edit one
+export async function PATCH(request, { params: { id } }) {}
+
+// Delete one
+export async function DELETE(request, { params: { id } }) {}

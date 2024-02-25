@@ -38,6 +38,8 @@ CREATE TABLE `Speciality` (
 CREATE TABLE `Skin` (
     `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
     `heroId` SMALLINT UNSIGNED NOT NULL,
+    `skinTag` VARCHAR(25) NOT NULL,
+    `skinTagIcon` VARCHAR(191) NULL,
     `name` VARCHAR(25) NOT NULL,
     `potrait` VARCHAR(191) NOT NULL,
     `splashArt` VARCHAR(191) NOT NULL,
