@@ -119,6 +119,12 @@ async function main() {
       skins: {
         create: [
           {
+            name: "Cyan Finch",
+            potrait: "/images/heroes/84/skins/potraits/Hero841-portrait.png",
+            splashArt:
+              "/images/heroes/84/skins/splash_arts/Ling_(Cyan_Finch).jpg",
+          },
+          {
             name: "Fiery Dance",
             potrait: "/images/heroes/84/skins/potraits/Hero842-portrait.png",
             splashArt:
