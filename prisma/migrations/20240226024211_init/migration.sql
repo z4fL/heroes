@@ -41,7 +41,7 @@ CREATE TABLE `Skin` (
     `skinTag` VARCHAR(25) NOT NULL,
     `skinTagIcon` VARCHAR(191) NULL,
     `name` VARCHAR(25) NOT NULL,
-    `potrait` VARCHAR(191) NOT NULL,
+    `portrait` VARCHAR(191) NOT NULL,
     `splashArt` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)

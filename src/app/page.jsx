@@ -11,7 +11,7 @@ const Page = () => {
         <div className="absolute z-0 left-0 h-full w-full">
           <div className="absolute backdrop-brightness-[0.75] h-full w-full"></div>
           <Image
-            src="/img/projectnext23.jpg"
+            src="/images/projectnext23.jpg"
             alt="project next 2023"
             className="w-full object-cover h-full"
             width={2440}
@@ -31,7 +31,7 @@ const Page = () => {
               Become an expert in mastering heroes
             </p>
             <div className="mb-7">
-              <Link href="/all-heroes" className="btn btn--light min-w-52 text-lg">
+              <Link href="/heroes" className="btn btn--light min-w-52 text-lg">
                 <span className="btn__inner">
                   <span className="btn__slide"></span>
                   <span className="btn__content">View all</span>
@@ -44,7 +44,7 @@ const Page = () => {
       <section className="relative flex px-36 w-full h-[720px] overflow-hidden">
         <div className="absolute z-0 left-0 h-auto w-full ">
           <Image
-            src="/img/kugisaki-nobara.png"
+            src="/images/kugisaki-nobara.png"
             alt="project next 2023"
             className="w-full object-cover h-auto mt-20"
             width={2440}
@@ -83,7 +83,7 @@ const Page = () => {
         <div className="absolute z-0 right-0-0 h-full w-full ">
           {/* <div className="absolute backdrop-brightness-[0.80] h-full w-full"></div> */}
           <Image
-            src="/img/mworld_ling.png"
+            src="/images/mworld_ling.png"
             alt="project next 2023"
             className="w-full object-cover h-auto mt-12"
             width={2440}

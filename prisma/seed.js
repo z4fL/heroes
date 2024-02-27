@@ -121,14 +121,14 @@ async function main() {
           {
             skinTag: "Default",
             name: "Cyan Finch",
-            potrait: "/images/heroes/84/skins/potraits/Hero841-portrait.png",
+            portrait: "/images/heroes/84/skins/portraits/Hero841-portrait.png",
             splashArt:
               "/images/heroes/84/skins/splash_arts/Ling_(Cyan_Finch).jpg",
           },
           {
             skinTag: "Normal",
             name: "Fiery Dance",
-            potrait: "/images/heroes/84/skins/potraits/Hero842-portrait.png",
+            portrait: "/images/heroes/84/skins/portraits/Hero842-portrait.png",
             splashArt:
               "/images/heroes/84/skins/splash_arts/Ling_(Fiery_Dance).jpg",
           },
@@ -136,7 +136,7 @@ async function main() {
             skinTag: "Starlight",
             skinTagIcon: "/images/skin-tag/starlight-icon.png",
             name: "Street Punk",
-            potrait: "/images/heroes/84/skins/potraits/Hero843-portrait.png",
+            portrait: "/images/heroes/84/skins/portraits/Hero843-portrait.png",
             splashArt:
               "/images/heroes/84/skins/splash_arts/Ling_(Street_Punk).jpg",
           },
@@ -144,7 +144,7 @@ async function main() {
             skinTag: "Dragon Tamer",
             skinTagIcon: "/images/skin-tag/dragontamer-icon.png",
             name: "Night Shade",
-            potrait: "/images/heroes/84/skins/potraits/Hero844-portrait.png",
+            portrait: "/images/heroes/84/skins/portraits/Hero844-portrait.png",
             splashArt:
               "/images/heroes/84/skins/splash_arts/Ling_(Night_Shade).jpg",
           },
@@ -152,7 +152,7 @@ async function main() {
             skinTag: "Special",
             skinTagIcon: "/images/skin-tag/special-icon.png",
             name: "Cosmo Guard",
-            potrait: "/images/heroes/84/skins/potraits/Hero845-portrait.png",
+            portrait: "/images/heroes/84/skins/portraits/Hero845-portrait.png",
             splashArt:
               "/images/heroes/84/skins/splash_arts/Ling_(Cosmo_Guard).jpg",
           },
@@ -160,7 +160,7 @@ async function main() {
             skinTag: "Collector",
             skinTagIcon: "/images/skin-tag/collector-icon.png",
             name: "Serene Plume",
-            potrait: "/images/heroes/84/skins/potraits/Hero846-portrait.png",
+            portrait: "/images/heroes/84/skins/portraits/Hero846-portrait.png",
             splashArt:
               "/images/heroes/84/skins/splash_arts/Ling_(Serene_Plume).jpg",
           },
@@ -168,7 +168,7 @@ async function main() {
             skinTag: "M-World",
             skinTagIcon: "/images/skin-tag/mworld-icon.png",
             name: "M-World",
-            potrait: "/images/heroes/84/skins/potraits/Hero847-portrait.png",
+            portrait: "/images/heroes/84/skins/portraits/Hero847-portrait.png",
             splashArt:
               "/images/heroes/84/skins/splash_arts/Ling_(M-World_Ling).jpg",
           },
@@ -176,7 +176,7 @@ async function main() {
             skinTag: "Kungfu Panda",
             skinTagIcon: "/images/skin-tag/kungfupanda-icon.png",
             name: "Lord Shen",
-            potrait: "/images/heroes/84/skins/potraits/Hero848-portrait.png",
+            portrait: "/images/heroes/84/skins/portraits/Hero848-portrait.png",
             splashArt:
               "/images/heroes/84/skins/splash_arts/Ling_(Lord_Shen).jpg",
           },

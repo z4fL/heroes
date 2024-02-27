@@ -17,11 +17,34 @@ export const getHeroesResponse = async (resource) => {
   };
 
   const outputArray = heroes.data.map(flattenObject);
-
   return outputArray;
 };
 
 export const getTableResponse = async (resource) => {
+  const response = await fetch(resource);
+  const data = await response.json();
+  return data;
+};
+
+export const getRoles = async (resource) => {
+  const { data } = await getTableResponse(resource);
+
+  const roles = data.map((role) => {
+    const { icon, ...data } = role;
+
+    return data;
+  });
+
+  return [
+    {
+      id: 0,
+      name: "All",
+    },
+    ...roles,
+  ];
+};
+
+export const getDataHero = async (resource) => {
   const response = await fetch(resource);
   const data = await response.json();
   return data;

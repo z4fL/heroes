@@ -4,6 +4,9 @@ import { NextResponse } from "next/server";
 // Get All
 export async function GET() {
   const heroes = await prisma.hero.findMany({
+    orderBy: {
+      main_id: "desc",
+    },
     include: {
       roles: {
         select: {
@@ -21,7 +24,7 @@ export async function GET() {
       skins: {
         select: {
           name: true,
-          potrait: true,
+          portrait: true,
         },
         where: {
           skinTag: "Default",
