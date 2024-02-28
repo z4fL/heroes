@@ -12,7 +12,7 @@ const DisclosureHero = ({ data }) => {
     <>
       <Disclosure>
         {({ open }) => (
-          <div className="absolute bottom-6 left-28 z-20 w-full max-w-lg bg-color-white p-5">
+          <div className="absolute bottom-6 left-28 z-30 w-full max-w-lg bg-color-white p-5">
             <Disclosure.Button className="absolute -top-10 left-0 flex bg-color-white px-4 py-2 text-left text-sm font-medium text-color-tertiary hover:bg-color-primary focus:outline-none focus-visible:ring-0">
               <span>{open ? "Minimize" : "Maximize"}</span>
               <ChevronUpIcon
@@ -23,16 +23,16 @@ const DisclosureHero = ({ data }) => {
             </Disclosure.Button>
             <div className="flex justify-between items-center pb-3">
               <div className="flex shrink w-full">
-                <div className="flex flex-col font-tungsten uppercase mr-7">
-                  <h3 className="text-color-secondary text-2xl leading-4">
+                <div className="relative flex flex-col font-tungsten uppercase mr-4">
+                  <h3 className="text-color-secondary text-2xl z-20 -mb-4">
                     {data.skinName}
                   </h3>
-                  <h2 className="text-color-accent text-7xl">
+                  <h2 className="text-color-accent text-7xl z-10">
                     {data.heroName}
                   </h2>
                 </div>
                 <div className="flex justify-center items-center">
-                  <h3 className="text-color-secondary text-base font-bold font-dinnext ">
+                  <h3 className="text-color-dark text-base font-bold font-dinnext ">
                     {data.specialities.join(" / ")}
                   </h3>
                 </div>

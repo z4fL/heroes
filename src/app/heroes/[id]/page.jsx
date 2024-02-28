@@ -15,6 +15,7 @@ const Page = async ({ params: { id } }) => {
         <DisclosureHero
           data={{
             skinName: data.skins[0].name,
+            splashArt: data.skins[0].splashArt,
             heroName: data.name,
             roles: data.roles,
             positions: data.positions,
@@ -22,6 +23,11 @@ const Page = async ({ params: { id } }) => {
               (speciality) => speciality.name
             ),
             ratings: data.ratings,
+            skillsResource: {
+              name: data.skillsResources,
+              color: data.skillsResourcesColor,
+              alterName: data.skillsResourcesAlternateNames,
+            },
           }}
         />
       </div>
@@ -31,7 +37,14 @@ const Page = async ({ params: { id } }) => {
             Skill introduction
           </h1>
           <div className="w-full max-w-screen-xl min-h-[542px] flex">
-            <SkillsHero skills={data.skills} />
+            <SkillsHero
+              skillsResource={{
+                name: data.skillsResources,
+                color: data.skillsResourcesColor,
+                alterName: data.skillsResourcesAlternateNames,
+              }}
+              skills={data.skills}
+            />
           </div>
         </div>
       </div>

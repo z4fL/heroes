@@ -6,7 +6,7 @@ import React from "react";
 
 const navigation = [
   { name: "Homepage", href: "/" },
-  { name: "All Heroes", href: "/all-heroes" },
+  { name: "All Heroes", href: "/heroes" },
   { name: "Equipment", href: "/equipment" },
   { name: "Gallery List", href: "/squads/oriental-fighter" },
 ];
@@ -24,7 +24,7 @@ const Navbar = () => {
     >
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-screen-xl px-2 relative flex h-14 items-center">
+          <div className="container mx-auto px-2 relative flex h-16 items-center">
             {/* Mobile menu button*/}
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
               <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-color-white hover:bg-color-dark hover:text-color-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-color-white">
@@ -50,8 +50,8 @@ const Navbar = () => {
                       href={item.href}
                       className={classNames(
                         pathName === item.href ||
-                          (pathName.startsWith("/hero/") &&
-                            item.href === "/all-heroes")
+                          (pathName.startsWith("/heroes/") &&
+                            item.href === "/heroes")
                           ? "bg-color-accent text-color-dark"
                           : "text-color-white hover:bg-color-tertiary hover:text-color-white",
                         "block px-3 py-2 text-md font-dinnext uppercase font-bold"

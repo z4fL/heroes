@@ -202,6 +202,9 @@ async function main() {
           },
         ],
       },
+      skillsResources: "Energy",
+      skillsResourcesColor: "#d9d9d9",
+      skillsResourcesAlternateNames: "Lightness Points",
       skills: {
         create: [
           {

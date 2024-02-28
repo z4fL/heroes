@@ -1,12 +1,11 @@
+import ValoButton from "@/components/ValoButton";
+import classNames from "@/libs/classNames";
 import Image from "next/image";
 import Link from "next/link";
 
 const Page = () => {
   return (
     <main className="flex flex-col items-center mt-14">
-      {/* <h1 className="text-[12rem] text-color-accent text-center font-tungsten mt-20">
-        HEROES
-      </h1> */}
       <section className="relative flex px-36 w-full h-[720px]">
         <div className="absolute z-0 left-0 h-full w-full">
           <div className="absolute backdrop-brightness-[0.75] h-full w-full"></div>
@@ -19,9 +18,10 @@ const Page = () => {
           />
         </div>
         <div
-          className="relative z-10 h-auto w-full max-w-screen-2xl mx-auto flex flex-col-reverse 
-        after:absolute after:block after:h-full after:content-[''] after:top-0 after:z-10 after:border-l after:border-color-accent
-        "
+          className={classNames(
+            "relative z-10 h-auto w-full max-w-screen-2xl mx-auto flex flex-col-reverse",
+            "after:absolute after:block after:h-full after:content-[''] after:top-0 after:z-10 after:border-l after:border-color-accent"
+          )}
         >
           <div className="relative my-20 mr-6 text-end">
             <h2 className="mb-1 text-9xl uppercase font-tungsten text-color-white">
@@ -32,10 +32,7 @@ const Page = () => {
             </p>
             <div className="mb-7">
               <Link href="/heroes" className="btn btn--light min-w-52 text-lg">
-                <span className="btn__inner">
-                  <span className="btn__slide"></span>
-                  <span className="btn__content">View all</span>
-                </span>
+                <ValoButton text={"View All"} />
               </Link>
             </div>
           </div>
@@ -68,12 +65,7 @@ const Page = () => {
               </p>
               <p className="text-2xl font-dinnext text-color-white mb-9"></p>
               <div className="mb-7">
-                <button className="btn btn--light min-w-52 text-lg">
-                  <span className="btn__inner">
-                    <span className="btn__slide"></span>
-                    <span className="btn__content">View all equipment</span>
-                  </span>
-                </button>
+                <ValoButton text={"View All Equipment"} />
               </div>
             </div>
           </div>
@@ -107,12 +99,7 @@ const Page = () => {
                 Starting from the fastest mode to the relaxing one you can try
               </p>
               <div className="my-7">
-                <button className="btn btn--light min-w-52 text-lg">
-                  <span className="btn__inner">
-                    <span className="btn__slide"></span>
-                    <span className="btn__content">View mode games</span>
-                  </span>
-                </button>
+                <ValoButton text={"View mode games"} />
               </div>
             </div>
           </div>

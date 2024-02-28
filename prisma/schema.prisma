@@ -11,17 +11,18 @@ datasource db {
 }
 
 model Hero {
-  id                  Int          @id @default(autoincrement()) @db.UnsignedSmallInt
-  main_id             Int          @unique @db.UnsignedSmallInt
-  roles               Role[]
-  positions           Position[]
-  specialities        Speciality[]
-  name                String       @db.VarChar(50)
-  skillResources      String
-  skillResourcesColor String
-  skins               Skin[]
-  ratings             Rating[]
-  skills              Skill[]
+  id                            Int          @id @default(autoincrement()) @db.UnsignedSmallInt
+  main_id                       Int          @unique @db.UnsignedSmallInt
+  roles                         Role[]
+  positions                     Position[]
+  specialities                  Speciality[]
+  name                          String       @db.VarChar(50)
+  skins                         Skin[]
+  ratings                       Rating[]
+  skillsResources               String?      @db.VarChar(10)
+  skillsResourcesColor          String?      @db.VarChar(10)
+  skillsResourcesAlternateNames String?      @db.VarChar(25)
+  skills                        Skill[]
 }
 
 model Role {

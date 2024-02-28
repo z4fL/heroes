@@ -3,6 +3,9 @@ CREATE TABLE `Hero` (
     `id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     `main_id` SMALLINT UNSIGNED NOT NULL,
     `name` VARCHAR(50) NOT NULL,
+    `skillsResources` VARCHAR(25) NULL,
+    `skillsResourcesColor` VARCHAR(10) NULL,
+    `skillsResourcesAlternateNames` VARCHAR(10) NULL,
 
     UNIQUE INDEX `Hero_main_id_key`(`main_id`),
     PRIMARY KEY (`id`)

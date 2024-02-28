@@ -4,7 +4,7 @@ import classNames from "@/libs/classNames";
 import Image from "next/image";
 import React, { Fragment, useState } from "react";
 
-const SkillsHero = ({ skills }) => {
+const SkillsHero = ({ skillsResource, skills }) => {
   const [activeSkill, setActiveSkill] = useState(skills[0]);
 
   const handleActiveSkill = (skill) => {
@@ -64,7 +64,7 @@ const SkillsHero = ({ skills }) => {
                 alt={activeSkill.name}
                 width={96}
                 height={96}
-                className="m-3 max-w-24 max-h-24 rounded-full shadow-[0px_0px_10px_rgb(0,0,0)]"
+                className="m-3 w-full max-w-24 h-full max-h-24 rounded-full shadow-[0px_0px_10px_rgb(0,0,0)]"
               />
             )}
             <div className="flex flex-col grow mx-3 mt-2">
@@ -104,7 +104,9 @@ const SkillsHero = ({ skills }) => {
                     <div className="ml-1">
                       {activeSkill.skillCooldown.map((data, index, array) => (
                         <Fragment key={index}>
-                          {`${data.value}${index < array.length - 1 ? " / " : ""}`}
+                          {`${data.value}${
+                            index < array.length - 1 ? " / " : ""
+                          }`}
                         </Fragment>
                       ))}
                     </div>
@@ -113,16 +115,18 @@ const SkillsHero = ({ skills }) => {
                 {activeSkill.skillCosts.length !== 0 && (
                   <div className="flex items-center">
                     <div
-                      // style={{
-                      //   backgroundColor: `${ling.ability_resource_color}`,
-                      // }}
-                      className="w-4 h-4 bg-cover bg-no-repeat bg-color-primary"
+                      style={{
+                        backgroundColor: skillsResource.color,
+                      }}
+                      className="w-4 h-4 bg-cover bg-no-repeat"
                     />
                     {/* <p className="mx-1">Cost</p> */}
                     <div className="ml-1">
                       {activeSkill.skillCosts.map((data, index, array) => (
                         <Fragment key={index}>
-                          {`${data.value}${index < array.length - 1 ? " / " : ""}`}
+                          {`${data.value}${
+                            index < array.length - 1 ? " / " : ""
+                          }`}
                         </Fragment>
                       ))}
                     </div>

@@ -10,7 +10,7 @@ const CardHeroes = ({ heroes }) => {
       <AnimatePresence>
         {heroes.map((data) => (
           <motion.div
-            key={data.id}
+            key={data.main_id}
             layout
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

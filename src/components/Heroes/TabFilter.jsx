@@ -18,7 +18,6 @@ const TabFilter = ({ dataHero, setFilter }) => {
 
   const fetchData = async () => {
     const roles = await getRoles("/api/data/role");
-    console.log(roles);
     setRoles(roles);
   };
 
