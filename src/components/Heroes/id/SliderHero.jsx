@@ -1,59 +1,41 @@
 "use client";
 
-import { Disclosure, Transition } from "@headlessui/react";
-import { motion, AnimatePresence, wrap } from "framer-motion";
 import Image from "next/image";
-import React, { useState } from "react";
-import CarouselSkinsHero from "./CarouselSkinsHero";
-
-const variants = {
-  enter: (direction) => {
-    return {
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0,
-    };
-  },
-  center: {
-    zIndex: 1,
-    x: 0,
-    opacity: 1,
-  },
-  exit: (direction) => {
-    return {
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0,
-    };
-  },
-};
-
-const swipeConfidenceThreshold = 10000;
-const swipePower = (offset, velocity) => {
-  return Math.abs(offset) * velocity;
-};
+import React, { useContext, useEffect, useState } from "react";
+import { SkinContext } from "./TopSectionHero";
 
 const SliderHero = ({ skins }) => {
-  const [[page, direction], setPage] = useState([0, 0]);
-
-  const imageIndex = wrap(0, skins.length, page);
-
-  const paginate = (newDirection) => {
-    setPage([page + newDirection, newDirection]);
-  };
+  const { currentSkin } = useContext(SkinContext);
 
   return (
     <>
-      <div className="h-[39rem] w-full">
-        <Image
-          src={skins[0].splashArt}
-          alt={skins[0].name}
-          width={1280}
-          height={720}
-          className="w-full h-full object-cover object-top"
-          priority
-        />
+      <div className="w-full">
+        <div className="flex w-full h-full">
+          {skins.map((skin, index) => {
+            return (
+              <div
+                key={index}
+                className={`relative shrink-0 w-full h-full ${
+                  index === currentSkin ? "" : "hidden"
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <Image
+                    key={skin.id}
+                    src={skin.splashArt}
+                    alt={skin.name}
+                    width={1280}
+                    height={720}
+                    className="w-full h-full object-cover object-top"
+                    priority={true}
+                    quality={50}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
-      <CarouselSkinsHero skins={skins} />
     </>
   );
 };

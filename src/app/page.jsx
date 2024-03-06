@@ -31,7 +31,7 @@ const Page = () => {
               Become an expert in mastering heroes
             </p>
             <div className="mb-7">
-              <Link href="/heroes" className="btn btn--light min-w-52 text-lg">
+              <Link href="/heroes">
                 <ValoButton text={"View All"} />
               </Link>
             </div>

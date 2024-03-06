@@ -1,45 +1,44 @@
 "use client";
 
+import classNames from "@/libs/classNames";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
-import classNames from "@/libs/classNames";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { SkinContext } from "./TopSectionHero";
 
-const CURSOR_SIZE = 80;
+const CURSOR_SIZE = 40;
 const START_INDEX = 0;
-const DRAG_THRESHOLD = 50;
+const DRAG_THRESHOLD = 45;
 const FALLBACK_WIDTH = 132;
 
-const CarouselSkinsHero = ({ skins }) => {
-  const containerRef = useRef();
-  const itemsRef = useRef([]);
-  const [activeSlide, setActiveSlide] = useState(START_INDEX);
-  const [isDragging, setIsDragging] = useState(false);
-  const [hasEffectRun, setHasEffectRun] = useState(false);
+export default function CarouselSkinsHero({ skins }) {
+  const { setCurrentSkin } = useContext(SkinContext);
 
+  const containerRef = useRef(null);
+  const itemsRef = useRef([]);
+
+  const [activeSlide, setActiveSlide] = useState(START_INDEX);
   const canScrollPrev = activeSlide > 0;
   const canScrollNext = activeSlide < skins.length - 1;
 
-  const containerWidth = 384;
-  const activeSlideWidth = 173;
-  const initialOffset =
-    -(START_INDEX * activeSlideWidth) +
-    (containerWidth - activeSlideWidth) / 2 -
-    activeSlideWidth / 128;
-
+  const initialOffset = 320 / 2 - FALLBACK_WIDTH / 2;
   const offsetX = useMotionValue(initialOffset);
   const animatedX = useSpring(offsetX, {
     damping: 20,
-    stiffness: 150,
+    stiffness: 300,
+    mass: 0.5,
   });
 
-  function handleDragSnap(_, { offset: { x: dragOffset } }) {
+  const [isDragging, setIsDragging] = useState(false);
+  function handleDrag(_, { offset: { x: dragOffset } }) {
     setIsDragging(false);
     containerRef.current?.removeAttribute("data-dragging");
+
     animatedX.stop();
 
     const currentOffset = offsetX.get();
+    console.log("dragOffset", dragOffset, "currentOffset", currentOffset);
 
     if (
       Math.abs(dragOffset) < DRAG_THRESHOLD ||
@@ -51,7 +50,6 @@ const CarouselSkinsHero = ({ skins }) => {
     }
 
     let offsetWidth = 0;
-
     for (
       let i = activeSlide;
       dragOffset > 0 ? i >= 0 : i < itemsRef.current.length;
@@ -67,23 +65,29 @@ const CarouselSkinsHero = ({ skins }) => {
         itemsRef.current[i + 1]?.offsetWidth ?? FALLBACK_WIDTH;
 
       if (
-        (dragOffset > 0 && dragOffset > offsetWidth + itemOffset && i > 1) ||
-        (dragOffset < 0 &&
+        (dragOffset > 0 && // dragging left
+          dragOffset > offsetWidth + itemOffset &&
+          i > 1) ||
+        (dragOffset < 0 && // dragging right
           dragOffset < offsetWidth + -itemOffset &&
           i < itemsRef.current.length - 2)
       ) {
         dragOffset > 0
           ? (offsetWidth += prevItemWidth)
-          : (offsetWidth -= prevItemWidth);
+          : (offsetWidth -= nextItemWidth);
         continue;
       }
 
       if (dragOffset > 0) {
+        // prev
         offsetX.set(currentOffset + offsetWidth + prevItemWidth);
         setActiveSlide(i - 1);
-      } else {
+        setCurrentSkin(i - 1);
+      } else if (dragOffset < 0) {
+        // next
         offsetX.set(currentOffset + offsetWidth - nextItemWidth);
         setActiveSlide(i + 1);
+        setCurrentSkin(i + 1);
       }
       break;
     }
@@ -92,115 +96,109 @@ const CarouselSkinsHero = ({ skins }) => {
   function scrollPrev() {
     if (!canScrollPrev) return;
 
-    const nextWidth =
-      itemsRef.current[activeSlide - 1]?.offsetWidth || FALLBACK_WIDTH;
+    const nextWidth = itemsRef.current
+      .at(activeSlide - 1)
+      ?.getBoundingClientRect().width;
+    if (nextWidth === undefined) return;
     offsetX.set(offsetX.get() + nextWidth);
     setActiveSlide((prev) => prev - 1);
+    setCurrentSkin((prev) => prev - 1);
   }
 
   function scrollNext() {
     if (!canScrollNext) return;
 
-    const nextWidth =
-      itemsRef.current[activeSlide + 1]?.offsetWidth || FALLBACK_WIDTH;
+    const nextWidth = itemsRef.current
+      .at(activeSlide + 1)
+      ?.getBoundingClientRect().width;
+    if (nextWidth === undefined) return;
     offsetX.set(offsetX.get() - nextWidth);
     setActiveSlide((prev) => prev + 1);
+    setCurrentSkin((prev) => prev + 1);
   }
 
   return (
-    <div className="absolute bottom-6 right-28 z-20 w-full max-w-sm pb-5">
-      <div className="relative overflow-hidden">
+    <div
+      className={classNames(
+        "absolute bottom-11 right-28 z-20 w-full max-w-xs mb-5"
+      )}
+    >
+      <div
+        className={classNames(
+          "relative h-52 flex items-center overflow-hidden"
+        )}
+      >
         <motion.ul
           ref={containerRef}
-          className="flex cursor-none items-center"
+          className="flex items-center cursor-grab"
           style={{
             x: animatedX,
           }}
           drag="x"
           dragConstraints={{
-            left: -(FALLBACK_WIDTH * (skins.length - 1)),
-            right: FALLBACK_WIDTH,
+            right: 320 / 2 - FALLBACK_WIDTH / 2,
+            left:
+              -((skins.length - 1) * FALLBACK_WIDTH + (skins.length - 1) * 12) +
+              100,
           }}
           onDragStart={() => {
-            containerRef.current?.setAttribute("data-dragging", true);
+            containerRef.current?.setAttribute("data-dragging", "true");
             setIsDragging(true);
           }}
-          onDragEnd={handleDragSnap}
+          onDragEnd={handleDrag}
         >
-          {skins.map((image, index) => {
-            const active = index === activeSlide;
-
+          {skins.map((skin, idx) => {
+            const active = idx === activeSlide;
             return (
               <motion.li
                 layout
-                key={index}
-                ref={(el) => (itemsRef.current[index] = el)}
-                className="group relative shrink-0 px-3 select-none transition-opacity duration-300"
-                style={{
-                  flexBasis: active ? "45%" : "40%",
-                  // flexBasis: active ? "9rem" : "8rem",
-                }}
-                transition={{
-                  ease: "easeInOut",
-                  duration: 0.4,
-                }}
+                key={skin.id}
+                ref={(el) => (itemsRef.current[idx] = el)}
+                className="relative shrink-0 px-1.5"
               >
                 <Image
-                  src={image.portrait}
-                  width={390}
-                  height={240}
-                  alt={image.name}
+                  key={skin.name}
+                  src={skin.portrait}
+                  width={240}
+                  height={390}
+                  alt={skin.name}
                   quality={90}
-                  priority={true}
-                  className={classNames("h-full w-full object-contain")}
+                  className="h-full w-[120px] object-cover transition-transform"
+                  style={{
+                    transform: `scale(${active ? 1 : 0.9})`,
+                  }}
+                  transition={{
+                    ease: "easeInOut",
+                    duration: 0.2,
+                  }}
                 />
               </motion.li>
             );
           })}
         </motion.ul>
         <button
-          type="button"
+          className="group absolute left-0 z-20 cursor-pointer focus:outline-none"
+          style={{
+            width: CURSOR_SIZE,
+            height: CURSOR_SIZE,
+          }}
           onClick={scrollPrev}
           disabled={!canScrollPrev}
-          className={classNames(
-            "group absolute left-0 top-1/3 z-20",
-            "grid aspect-square place-content-center rounded-full transition-colors"
-          )}
-          style={{
-            width: CURSOR_SIZE,
-            height: CURSOR_SIZE,
-          }}
         >
-          <ChevronLeftIcon
-            className={classNames(
-              "h-10 w-10 stroke-[1.5]",
-              "transition-colors group-enabled:group-hover:text-color-white group-disabled:opacity-50"
-            )}
-          />
+          <ChevronLeftIcon className="w-8 h-8 text-color-white group-enabled:group-hover:text-color-accent group-disabled:opacity-50" />
         </button>
         <button
-          type="button"
-          onClick={scrollNext}
-          disabled={!canScrollNext}
-          className={classNames(
-            "group absolute right-0 top-1/3 z-20",
-            "grid aspect-square place-content-center rounded-full transition-colors"
-          )}
+          className="group absolute right-0 z-20 cursor-pointer focus:outline-none"
           style={{
             width: CURSOR_SIZE,
             height: CURSOR_SIZE,
           }}
+          onClick={scrollNext}
+          disabled={!canScrollNext}
         >
-          <ChevronRightIcon
-            className={classNames(
-              "h-10 w-10 stroke-[1.5]",
-              "transition-colors group-enabled:group-hover:text-color-white group-disabled:opacity-50"
-            )}
-          />
+          <ChevronRightIcon className="w-8 h-8 text-color-white group-enabled:group-hover:text-color-accent group-disabled:opacity-50" />
         </button>
       </div>
     </div>
   );
-};
-
-export default CarouselSkinsHero;
+}

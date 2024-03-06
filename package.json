@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "prisma": {
-    "seed": "node prisma/seed.js"
+    "seed": "node prisma/seed/index.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",

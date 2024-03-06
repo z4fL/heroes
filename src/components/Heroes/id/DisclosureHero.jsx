@@ -1,18 +1,20 @@
 "use client";
 
 import { Dialog, Disclosure, Transition } from "@headlessui/react";
-import { ChevronUpIcon } from "@heroicons/react/24/outline";
+import { ChevronRightIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
+import { SkinContext } from "./TopSectionHero";
 
 const DisclosureHero = ({ data }) => {
+  const { currentSkin } = useContext(SkinContext);
   const [isOpen, setIsOpen] = useState(false);
-  
+
   return (
     <>
       <Disclosure>
         {({ open }) => (
-          <div className="absolute bottom-6 left-28 z-30 w-full max-w-lg bg-color-white p-5">
+          <div className="absolute bottom-6 left-28 z-30 w-full max-w-lg bg-color-white pt-5 pb-7 px-6">
             <Disclosure.Button className="absolute -top-10 left-0 flex bg-color-white px-4 py-2 text-left text-sm font-medium text-color-tertiary hover:bg-color-primary focus:outline-none focus-visible:ring-0">
               <span>{open ? "Minimize" : "Maximize"}</span>
               <ChevronUpIcon
@@ -22,23 +24,29 @@ const DisclosureHero = ({ data }) => {
               />
             </Disclosure.Button>
             <div className="flex justify-between items-center pb-3">
-              <div className="flex shrink w-full">
-                <div className="relative flex flex-col font-tungsten uppercase mr-4">
-                  <h3 className="text-color-secondary text-2xl z-20 -mb-4">
-                    {data.skinName}
-                  </h3>
-                  <h2 className="text-color-accent text-7xl z-10">
+              <div className="flex grow">
+                <div className="relative flex flex-col font-tungsten uppercase">
+                  <h3 className="text-color-dark text-5xl z-20 -mb-5">
                     {data.heroName}
-                  </h2>
-                </div>
-                <div className="flex justify-center items-center">
-                  <h3 className="text-color-dark text-base font-bold font-dinnext ">
-                    {data.specialities.join(" / ")}
                   </h3>
+                  <h2 className="flex items-center text-color-accent text-6xl z-10">
+                    {data.skin.at(currentSkin)["name"]}
+                    {data.skin.at(currentSkin)["skinTagIcon"] && (
+                      <div className="flex items-center w-auto h-7 ml-3">
+                        <Image
+                          src={data.skin.at(currentSkin)["skinTagIcon"]}
+                          alt="Dragon Tamer"
+                          width={87}
+                          height={36}
+                          className="w-auto h-full max-h-8"
+                        />
+                      </div>
+                    )}
+                  </h2>
                 </div>
               </div>
               <div className="flex items-center divide-x divide-color-secondary/40">
-                <div className="flex items-center space-x-1 w-full pr-2">
+                <div className="flex items-center space-x-1 w-full pr-2.5">
                   {data.roles.map((role, index) => (
                     <div
                       key={role.id}
@@ -49,7 +57,7 @@ const DisclosureHero = ({ data }) => {
                         alt={role.name}
                         width={320}
                         height={320}
-                        className={`max-w-9 max-h-9 ${
+                        className={`max-w-10 max-h-10 ${
                           index === 1 ? "invert-[.30]" : "invert-[.50]"
                         }`}
                       />
@@ -59,7 +67,7 @@ const DisclosureHero = ({ data }) => {
                     </div>
                   ))}
                 </div>
-                <div className="flex items-center space-x-1 w-full pl-2">
+                <div className="flex items-center space-x-1 w-full pl-2.5">
                   {data.positions.map((position, index) => (
                     <div
                       key={position.id}
@@ -70,7 +78,7 @@ const DisclosureHero = ({ data }) => {
                         alt={position.name}
                         width={320}
                         height={320}
-                        className={`max-w-9 max-h-9 ${
+                        className={`max-w-10 max-h-10 ${
                           index === 1 ? "invert-[.30]" : "invert-[.50]"
                         }`}
                       />
@@ -89,12 +97,20 @@ const DisclosureHero = ({ data }) => {
               leaveFrom="opacity-100 max-h-96"
               leaveTo="opacity-0 max-h-0"
             >
-              <Disclosure.Panel className="mb-6">
-                <div className="w-full flex flex-wrap items-center justify-between py-3 mb-3 border-y border-color-secondary/40">
+              <Disclosure.Panel className="">
+                <div className="flex justify-start items-center py-3 border-t border-color-secondary/40">
+                  <p className="font-dinnext font-bold whitespace-nowrap inline">
+                    Specialities :{" "}
+                  </p>
+                  <span className="font-dinnext font-bold inline whitespace-nowrap">
+                    {data.specialities.join(" / ")}
+                  </span>
+                </div>
+                <div className="w-full flex flex-wrap items-center justify-between py-3 border-y border-color-secondary/40">
                   {data.ratings.map((rating, index) => (
                     <div
                       key={rating.id}
-                      className="w-2/5 h-8 min-h-0 flex flex-col my-1"
+                      className="w-2/5 h-8 min-h-0 flex flex-col my-1 mr-3"
                     >
                       <p className="w-full text-sm font-dinnext font-bold tracking-wide">
                         {rating.name}
@@ -109,13 +125,16 @@ const DisclosureHero = ({ data }) => {
                     </div>
                   ))}
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setIsOpen(true)}
-                  className="bg-color-dark px-4 py-2 text-sm font-medium text-color-white hover:bg-color-accent focus:outline-none focus-visible:ring-0"
-                >
-                  More Details
-                </button>
+                <div className="py-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsOpen(true)}
+                    className="h-full flex items-center bg-color-dark px-4 py-2.5 text-sm font-medium text-color-white hover:bg-color-accent focus:outline-none focus-visible:ring-0"
+                  >
+                    More Details
+                    <ChevronRightIcon className="w-4 h-4 font-bold" />
+                  </button>
+                </div>
               </Disclosure.Panel>
             </Transition>
             <div className="absolute bottom-0 left-0 w-full h-6 bg-color-tertiary"></div>

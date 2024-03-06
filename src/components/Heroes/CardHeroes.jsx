@@ -27,8 +27,8 @@ const CardHeroes = ({ heroes }) => {
             >
               <Image
                 src={data.skin_portrait}
-                width={390}
-                height={240}
+                width={240}
+                height={390}
                 alt={data.name}
                 quality={90}
                 priority={true}

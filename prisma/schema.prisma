@@ -70,6 +70,7 @@ model Skill {
   description   String
   specialTerms  SpecialTerms[]
   specialValue  SpecialValue[]
+  video         String
 }
 
 model SkillCost {

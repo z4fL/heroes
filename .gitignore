@@ -2,6 +2,7 @@
 
 .env
 /public/images
+/public/videos
 
 # dependencies
 /node_modules
